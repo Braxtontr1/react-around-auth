@@ -1,0 +1,8 @@
+.auth__input {
+  height: auto;
+  margin-bottom: 30px;
+}
+
+.auth__input:last-of-type {
+  margin-bottom: 0;
+}
