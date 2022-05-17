@@ -1,0 +1,13 @@
+.auth__text {
+  border: none;
+  width: 100%;
+  color: #fff;
+  border-bottom: 2px solid rgba(204, 204, 204, 1);
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 17px;
+  background-color: #000;
+  text-transform: capitalize;
+  padding: 0;
+  padding-bottom: 13px;
+}
