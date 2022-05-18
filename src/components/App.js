@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, Route, Switch, BrowserRouter } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  BrowserRouter,
+  useHistory,
+} from "react-router-dom";
 import * as auth from "../utils/auth";
 import Login from "./Login";
 import Register from "./Register";
@@ -30,7 +36,7 @@ function App() {
 
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
 
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(true);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
   const [tooltipStatus, setToolTipStatus] = useState("");
 
@@ -41,6 +47,8 @@ function App() {
   const [cards, setCards] = useState([]);
 
   const [cardConfirmDelete, setCardConfirmDelete] = useState(null);
+
+  const history = useHistory();
 
   useEffect(() => {
     api
@@ -69,14 +77,14 @@ function App() {
           if (res) {
             setEmail(res.data.email);
             setIsLoggedIn(true);
-            this.history.push("/");
+            history.push("/");
           } else {
             localStorage.removeItem("jwt");
           }
         })
         .catch((err) => console.log(err));
     }
-  });
+  }, [history]);
 
   function handleLogin(email, password) {
     auth
@@ -86,6 +94,7 @@ function App() {
           setIsLoggedIn(true);
           setEmail(email);
           localStorage.setItem("jwt", res.token);
+          history.push("/");
         } else {
           setToolTipStatus("fail");
           setIsInfoTooltipOpen(true);
@@ -97,22 +106,28 @@ function App() {
       });
   }
 
-  function onRegister({ email, password }) {
-    auth.register(email, password).then((res) => {
-      if (res.data._id) {
-        this.history.push("/signin");
-        setToolTipStatus("success");
-        setIsInfoTooltipOpen(true);
-      } else {
+  function handleRegistration({ email, password }) {
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (res.data._id) {
+          history.push("/signin");
+          setToolTipStatus("success");
+          setIsInfoTooltipOpen(true);
+        } else {
+          setToolTipStatus("fail");
+          setIsInfoTooltipOpen(false);
+        }
+      })
+      .catch((err) => {
         setToolTipStatus("fail");
-        setIsInfoTooltipOpen(false);
-      }
-    });
+        setIsInfoTooltipOpen(true);
+      });
   }
 
   function handleSignout() {
     localStorage.removeItem("jwt");
-    this.history.push("/signin");
+    history.push("/signin");
   }
 
   function handleEditProfileClick() {
@@ -217,7 +232,7 @@ function App() {
             </ProtectedRoute>
 
             <Route path="/signup">
-              <Register onRegister={onRegister} />
+              <Register onRegister={handleRegistration} />
             </Route>
             <Route path="/signin">
               <Login onLogin={handleLogin} />
