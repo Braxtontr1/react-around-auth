@@ -19,7 +19,7 @@ function Register({ onRegister }) {
       <form className="auth__form" onSubmit={handleSubmit}>
         <div className="auth__wrapper">
           <h3 className="auth__title">Sign up</h3>
-          <label className="auth__input">
+          <div className="auth__input">
             <input
               required
               className="auth__text"
@@ -29,23 +29,23 @@ function Register({ onRegister }) {
               id="email"
               onChange={(e) => setEmail(e.target.value)}
             />
-          </label>
-          <label className="auth__input">
+          </div>
+          <div className="auth__input">
             <input
               required
               className="auth__text"
-              type="text"
+              type="password"
               name="password"
               placeholder="password"
               id="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-          </label>
+          </div>
           <div className="auth__wrapper">
             <button className="auth__button" type="submit">
               Sign up
             </button>
-            <p className="auth__text">
+            <p className="auth__link-text">
               Already a member?{" "}
               <Link className="auth__link" to="/signin">
                 Log in here!

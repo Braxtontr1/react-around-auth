@@ -15,6 +15,7 @@ import "../index.css";
 import AddPlacePopup from "./AddPlacePopup";
 import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
 import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,6 +29,10 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(true);
+
+  const [tooltipStatus, setToolTipStatus] = useState("");
 
   const [user, setUser] = useState({});
 
@@ -56,33 +61,51 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const userToken = localStorage.getItem("jwt");
-    if (userToken) {
-      auth.checkToken(userToken).then((res) => {
-        setEmail(res.data.email);
-        setIsLoggedIn(true);
-        this.history.push("/");
-      });
-    } else {
-      localStorage.removeItem("jwt");
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            setIsLoggedIn(true);
+            this.history.push("/");
+          } else {
+            localStorage.removeItem("jwt");
+          }
+        })
+        .catch((err) => console.log(err));
     }
-  }, []);
+  });
 
   function handleLogin(email, password) {
-    auth.login(email, password).then((res) => {
-      if (res.token) {
-        setIsLoggedIn(true);
-        setEmail(email);
-        localStorage.setItem("jwt", res.token);
-      }
-    });
+    auth
+      .login(email, password)
+      .then((res) => {
+        if (res.token) {
+          setIsLoggedIn(true);
+          setEmail(email);
+          localStorage.setItem("jwt", res.token);
+        } else {
+          setToolTipStatus("fail");
+          setIsInfoTooltipOpen(true);
+        }
+      })
+      .catch((err) => {
+        setToolTipStatus("fail");
+        setIsInfoTooltipOpen(true);
+      });
   }
 
-  function handleRegistration(email, password) {
+  function onRegister({ email, password }) {
     auth.register(email, password).then((res) => {
       if (res.data._id) {
         this.history.push("/signin");
+        setToolTipStatus("success");
+        setIsInfoTooltipOpen(true);
       } else {
+        setToolTipStatus("fail");
+        setIsInfoTooltipOpen(false);
       }
     });
   }
@@ -170,6 +193,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddCardPopupOpen(false);
     setIsConfirmDeleteOpen(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard(null);
   }
 
@@ -177,7 +201,7 @@ function App() {
     <CurrentUserContext.Provider value={user}>
       <BrowserRouter>
         <div className="page">
-          <Header />
+          <Header email={email} handleSignout={handleSignout} />
           <Switch>
             <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
               <Main
@@ -193,7 +217,7 @@ function App() {
             </ProtectedRoute>
 
             <Route path="/signup">
-              <Register onRegister={{ handleRegistration }} />
+              <Register onRegister={onRegister} />
             </Route>
             <Route path="/signin">
               <Login onLogin={handleLogin} />
@@ -230,8 +254,11 @@ function App() {
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-          {/* <Header />
-          <Footer /> */}
+          <InfoTooltip
+            isOpen={isInfoTooltipOpen}
+            onClose={closeAllPopups}
+            status={tooltipStatus}
+          />
         </div>
       </BrowserRouter>
     </CurrentUserContext.Provider>

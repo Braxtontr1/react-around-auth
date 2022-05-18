@@ -1,6 +1,6 @@
-const BASE_URL = "https://register.nomoreparties.co";
+export const BASE_URL = "https://register.nomoreparties.co";
 
-const register = (email, password) => {
+export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -19,7 +19,7 @@ const register = (email, password) => {
     });
 };
 
-const login = (email, password) => {
+export const login = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
@@ -40,7 +40,7 @@ const login = (email, password) => {
     });
 };
 
-const checkToken = (token) => {
+export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
@@ -58,5 +58,3 @@ const checkToken = (token) => {
       return data;
     });
 };
-
-export { register, login, checkToken, BASE_URL };

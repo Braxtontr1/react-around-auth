@@ -1,6 +1,7 @@
 .auth__input {
   height: auto;
   margin-bottom: 30px;
+  background-color: #000;
 }
 
 .auth__input:last-of-type {
