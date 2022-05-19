@@ -3,6 +3,7 @@ import { Route, Link } from "react-router-dom";
 import aroundTheUS from "../images/around-the-us.svg";
 
 function Header({ onSignout, email }) {
+  console.log(email);
   function handleSignout() {
     onSignout();
   }
@@ -12,8 +13,8 @@ function Header({ onSignout, email }) {
 
       <Route exact path="/">
         <div className="header__wrapper">
-          <p className="header__user">{email}</p>
-          <button className="header__logout" onClick={handleSignout}>
+          <p className="header__user">{`${email}`}</p>
+          <button className="header__logout button" onClick={handleSignout}>
             Sign out
           </button>
         </div>

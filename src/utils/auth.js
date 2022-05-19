@@ -29,7 +29,7 @@ export const login = ({ email, password }) => {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      if (res.status === 201) {
+      if (res.status === 200) {
         return res.json();
       }
     })
@@ -50,7 +50,7 @@ export const checkToken = (token) => {
     },
   })
     .then((res) => {
-      if (res.status === 201) {
+      if (res.status === 200) {
         return res.json();
       }
     })
