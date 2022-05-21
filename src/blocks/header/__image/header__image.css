@@ -1,15 +1,20 @@
 .header__image {
-    padding-bottom: 41px;
+  padding: 0 0 41px;
 }
 
 @media screen and (max-width: 880px) {
-    .header__image {
-        padding: 0 0 32px 27px;
-    }
+  .header__image {
+    margin: 0 0 0px 27px;
+    padding: 0 0 32px;
+    max-width: 126px;
+    max-height: 24px;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    .header__image {
-        max-width: 126px;
-    }
+  .header__image {
+    padding: 0;
+    max-width: 126px;
+    max-height: 24px;
+  }
 }

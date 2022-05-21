@@ -1,4 +1,11 @@
 .header__link {
   color: #fff;
   text-decoration: none;
+  height: 100%;
+}
+
+@media screen and (max-width: 880px) {
+  .header__link {
+    padding: 0 32px 0 0;
+  }
 }

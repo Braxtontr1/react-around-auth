@@ -4,6 +4,6 @@
   background-color: #000;
 }
 
-.auth__input:last-of-type {
-  margin-bottom: 0;
+.auth__input:nth-of-type(2) {
+  margin-bottom: 0px;
 }

@@ -1,0 +1,19 @@
+.header__mobile-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url("../../../images/header__mobile-button.svg");
+  background-color: inherit;
+  margin: 0;
+  right: 15px;
+  position: absolute;
+  z-index: 10;
+  border: none;
+  opacity: 1;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  .header__mobile-icon {
+    visibility: visible;
+  }
+}

@@ -8,8 +8,9 @@
   color: #fff;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 880px) {
   .auth {
     width: 238px;
+    padding-top: 40px;
   }
 }

@@ -42,7 +42,7 @@ function Register({ onRegister }) {
             />
           </div>
           <div className="auth__wrapper">
-            <button className="auth__button" type="submit">
+            <button className="auth__button button" type="submit">
               Sign up
             </button>
             <p className="auth__link-text">

@@ -97,6 +97,7 @@ function App() {
       .catch((err) => {
         setToolTipStatus("fail");
         setIsInfoTooltipOpen(true);
+        console.log(err);
       });
   }
 
@@ -122,6 +123,7 @@ function App() {
   function handleSignout() {
     localStorage.removeItem("jwt");
     history.push("/signin");
+    setIsLoggedIn(false);
   }
 
   function handleEditProfileClick() {
@@ -209,32 +211,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={user}>
       <div className="page">
-        <Header email={email} onSignout={handleSignout} />
-        <Switch>
-          <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
-            <Main
-              cards={cards}
-              user={user}
-              onEditProfileOpen={handleEditProfileClick}
-              onAddCardOpen={handleAddCardClick}
-              onEditAvatarOpen={handleEditAvatarClick}
-              onCardClick={handleCardImageClick}
-              onCardDeleteClick={handleCardDeleteClick}
-              onCardLikeClick={handleCardLikeClick}
-            />
-          </ProtectedRoute>
-
-          <Route path="/signup">
-            <Register onRegister={handleRegistration} />
-          </Route>
-          <Route path="/signin">
-            <Login onLogin={handleLogin} />
-          </Route>
-          <Route>
-            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
-          </Route>
-        </Switch>
-        <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -262,6 +238,35 @@ function App() {
           onClose={closeAllPopups}
           status={tooltipStatus}
         />
+        <Header
+          email={email}
+          onSignout={handleSignout}
+          isUserLoggedIn={isLoggedIn}
+        />
+        <Switch>
+          <Route path="/signup">
+            <Register onRegister={handleRegistration} />
+          </Route>
+          <Route path="/signin">
+            <Login onLogin={handleLogin} />
+          </Route>
+          <Route>
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+          </Route>
+        </Switch>
+        <ProtectedRoute exact path="/" loggedIn={isLoggedIn}>
+          <Main
+            cards={cards}
+            user={user}
+            onEditProfileOpen={handleEditProfileClick}
+            onAddCardOpen={handleAddCardClick}
+            onEditAvatarOpen={handleEditAvatarClick}
+            onCardClick={handleCardImageClick}
+            onCardDeleteClick={handleCardDeleteClick}
+            onCardLikeClick={handleCardLikeClick}
+          />
+        </ProtectedRoute>
+        <Footer />
       </div>
     </CurrentUserContext.Provider>
   );

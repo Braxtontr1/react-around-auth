@@ -1,0 +1,15 @@
+.header__user-wrapper_mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 600px) {
+  .header__user-wrapper_mobile {
+    max-width: 100%;
+    flex-direction: column;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  }
+}

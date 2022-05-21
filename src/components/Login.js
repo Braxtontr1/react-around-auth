@@ -42,7 +42,7 @@ function Login({ onLogin }) {
             />
           </div>
           <div className="auth__wrapper">
-            <button className="auth__button" type="submit">
+            <button className="auth__button button" type="submit">
               Log in
             </button>
             <p className="auth__link-text">

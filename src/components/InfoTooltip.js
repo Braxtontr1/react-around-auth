@@ -6,21 +6,21 @@ function InfoTooltip({ isOpen, onClose, status, name }) {
   return (
     <div className={`modal modal_type_${name} ${isOpen && "modal_open"}`}>
       <div className="modal__box">
+        <button
+          className="modal__close-button button"
+          type="button"
+          onClick={onClose}
+        ></button>
         <form>
-          <button
-            className="modal__close-button button"
-            type="button"
-            onClick={onClose}
-          ></button>
           {status === "success" ? (
-            <div>
+            <div className="modal__content-wrapper">
               <img className="modal__icon" src={successIcon} alt="" />
               <p className="modal__status-message">
                 Success! You have now been registered.
               </p>
             </div>
           ) : (
-            <div>
+            <div className="modal__content-wrapper">
               <img className="modal__icon" src={failIcon} alt="" />
               <p className="modal__status-message">
                 Oops! Something went wrong! Please try again.

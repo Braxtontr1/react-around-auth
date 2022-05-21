@@ -1,4 +1,4 @@
-.header {
+.header__auth {
   display: flex;
   justify-content: space-between;
   margin: auto;
@@ -9,15 +9,13 @@
 }
 
 @media screen and (max-width: 880px) {
-  .header {
+  .header__auth {
     padding-top: 28px;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .header {
-    flex-direction: column-reverse;
-    padding-top: 0;
+  .header__auth {
     padding-bottom: 20px;
   }
 }
