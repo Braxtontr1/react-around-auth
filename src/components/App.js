@@ -89,30 +89,23 @@ function App() {
           setEmail(email);
           localStorage.setItem("jwt", res.token);
           history.push("/");
-        } else {
-          setToolTipStatus("fail");
-          setIsInfoTooltipOpen(true);
-        }
+        } else return;
       })
       .catch((err) => {
         setToolTipStatus("fail");
         setIsInfoTooltipOpen(true);
-        console.log(err);
       });
   }
 
   function handleRegistration({ email, password }) {
     auth
-      .register(email, password)
+      .register({ email, password })
       .then((res) => {
         if (res.data._id) {
           history.push("/signin");
           setToolTipStatus("success");
           setIsInfoTooltipOpen(true);
-        } else {
-          setToolTipStatus("fail");
-          setIsInfoTooltipOpen(false);
-        }
+        } else return;
       })
       .catch((err) => {
         setToolTipStatus("fail");

@@ -11,23 +11,21 @@ function InfoTooltip({ isOpen, onClose, status, name }) {
           type="button"
           onClick={onClose}
         ></button>
-        <form>
-          {status === "success" ? (
-            <div className="modal__content-wrapper">
-              <img className="modal__icon" src={successIcon} alt="" />
-              <p className="modal__status-message">
-                Success! You have now been registered.
-              </p>
-            </div>
-          ) : (
-            <div className="modal__content-wrapper">
-              <img className="modal__icon" src={failIcon} alt="" />
-              <p className="modal__status-message">
-                Oops! Something went wrong! Please try again.
-              </p>
-            </div>
-          )}
-        </form>
+        {status === "success" ? (
+          <div className="modal__content-wrapper">
+            <img className="modal__icon" src={successIcon} alt="" />
+            <p className="modal__status-message">
+              Success! You have now been registered.
+            </p>
+          </div>
+        ) : (
+          <div className="modal__content-wrapper">
+            <img className="modal__icon" src={failIcon} alt="" />
+            <p className="modal__status-message">
+              Oops! Something went wrong! Please try again.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

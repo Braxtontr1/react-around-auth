@@ -27,6 +27,7 @@ function Login({ onLogin }) {
               name="email"
               placeholder="email"
               id="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -38,6 +39,7 @@ function Login({ onLogin }) {
               name="password"
               placeholder="password"
               id="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>

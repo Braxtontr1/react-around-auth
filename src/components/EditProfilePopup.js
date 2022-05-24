@@ -21,7 +21,7 @@ function EditProfilePopup({ isOpen, onUpdateUser, onClose }) {
       setName(user.name);
       setDescription(user.about);
     }
-  }, [user]);
+  }, [user, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -49,6 +49,7 @@ function EditProfilePopup({ isOpen, onUpdateUser, onClose }) {
         required
         minLength={"2"}
         maxLength={"30"}
+        value={name || ""}
         onChange={handleNameChange}
       />
       <span className="form__error" id="name-error" type="text" />
@@ -61,6 +62,7 @@ function EditProfilePopup({ isOpen, onUpdateUser, onClose }) {
         required
         minLength={"2"}
         maxLength={"30"}
+        value={description || ""}
         onChange={handleDescriptionChange}
       />
       <span className="form__error" id="job-error" type="text" />

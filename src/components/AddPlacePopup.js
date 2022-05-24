@@ -1,12 +1,9 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function AddPlacePopup({ isOpen, onAddNewCard, onClose }) {
   const user = useContext(CurrentUserContext);
-
-  const nameInputRef = useRef();
-  const linkInputRef = useRef();
 
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
@@ -50,7 +47,6 @@ function AddPlacePopup({ isOpen, onAddNewCard, onClose }) {
         maxLength={"30"}
         value={name.value}
         onChange={handleTitleChange}
-        ref={nameInputRef}
       />
       <span className="form__error" id="title-error" />
       <input
@@ -61,7 +57,6 @@ function AddPlacePopup({ isOpen, onAddNewCard, onClose }) {
         placeholder="Image Link"
         value={link.value}
         onChange={handleLinkChange}
-        ref={linkInputRef}
         required
       />
       <span className="form__error" id="image-error" />
